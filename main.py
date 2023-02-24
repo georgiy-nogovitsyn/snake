@@ -13,11 +13,12 @@ sky_surf = pygame.image.load('graphics/Sky.png').convert()
 ground_surf = pygame.image.load('graphics/ground.png').convert()
 player_surf = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
 player_rect = player_surf.get_rect(midbottom = (80,300))
-player_words = ''
-player_says = font.render(player_words, False, 'Black')
+
 
 snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 snail_rect = snail_surf.get_rect(midbottom = (600, 300))
+snail_words = ''
+snail_says = chars_words.render('Fuck you!', False, 'Black')
 
 snake_surf = pygame.Surface((10,10))
 snake_surf.fill('Red')
@@ -25,11 +26,12 @@ snake_rect = snake_surf.get_rect(midbottom = (15,15))
 scr = 0
 counter = 0
 counter_t = 0
-text_surf = font.render('Snake game', False, 'White')
-text_rect = text_surf.get_rect(midright = (player_rect.x, player_rect.y))
-while True:
 
-    player_says = font.render(player_words, False, 'Black')
+text_surf = font.render('Learn', True, 'Black')
+text_rect = text_surf.get_rect(center = (400, 50))
+
+
+while True:
 
     score = font.render(str(scr), False, 'Black')
 
@@ -37,6 +39,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print('mus doon')
+        elif event.type == pygame.MOUSEBUTTONUP:
+            print('mus app')
 
     SCREEN.blit(sky_surf, (0, 0))
     SCREEN.blit(ground_surf, (0, 300))
@@ -44,7 +50,7 @@ while True:
     SCREEN.blit(player_surf, (player_rect))
     SCREEN.blit(snake_surf, (snake_rect))
     SCREEN.blit(score, (10,10))
-    SCREEN.blit(player_says, (text_rect))
+    SCREEN.blit(snail_says, (snail_rect.x-30, snail_rect.y-50))
     snake_rect.x += 1
     snail_rect.x -= 4
     if counter < 13:
@@ -61,7 +67,6 @@ while True:
 
     mouse_pos = pygame.mouse.get_pos()
     if player_rect.collidepoint(mouse_pos):
-        player_words = 'Ouch'
         scr += 1
 
     counter_t += 1
@@ -71,6 +76,6 @@ while True:
 
 
 
-    SCREEN.blit(text_surf, (325, 100))
+    SCREEN.blit(text_surf, (text_rect))
     pygame.display.update()
     clock.tick(FPS)
