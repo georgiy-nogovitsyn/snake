@@ -11,9 +11,10 @@ font = pygame.font.Font('font/Pixeltype.ttf', 50)
 chars_words = pygame.font.Font('font/Pixeltype.ttf', 28)
 sky_surf = pygame.image.load('graphics/Sky.png').convert()
 ground_surf = pygame.image.load('graphics/ground.png').convert()
+
 player_surf = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
 player_rect = player_surf.get_rect(midbottom = (80,300))
-
+player_gravity = 0
 
 snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 snail_rect = snail_surf.get_rect(midbottom = (600, 300))
@@ -32,33 +33,55 @@ text_rect = text_surf.get_rect(center = (400, 50))
 
 
 while True:
-
-    score = font.render(str(scr), False, 'Black')
+    direction = 1
+    score = font.render(str(scr), False, (64, 64, 64))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and player_rect.bottom == 300:
+                player_gravity = -20
+
+        if event.type == pygame.K_w:
+            player_rect.x +=20
+
         if event.type == pygame.MOUSEBUTTONDOWN:
-            print('mus doon')
-        elif event.type == pygame.MOUSEBUTTONUP:
-            print('mus app')
+            if player_rect.collidepoint(mouse_pos):
+                player_gravity = -20
+
+    # if player_rect.colliderect(snail_rect):
+    #     print('game over')
+    #     pygame.quit()
+    #     exit()
 
     SCREEN.blit(sky_surf, (0, 0))
     SCREEN.blit(ground_surf, (0, 300))
     SCREEN.blit(snail_surf, (snail_rect))
+
+    player_gravity += 1
+    player_rect.y += player_gravity
+    if player_rect.bottom >= 300:
+        player_rect.bottom = 300
     SCREEN.blit(player_surf, (player_rect))
+
+
+
     SCREEN.blit(snake_surf, (snake_rect))
     SCREEN.blit(score, (10,10))
     SCREEN.blit(snail_says, (snail_rect.x-30, snail_rect.y-50))
-    snake_rect.x += 1
-    snail_rect.x -= 4
+
+    pygame.draw.rect(SCREEN, '#c0e8ec', text_rect)
+    pygame.draw.rect(SCREEN, '#c0e8ec', text_rect, 10)
+    snail_rect.x -= 7
     if counter < 13:
-        snail_rect.y -= 4
+        snail_rect.y -= 2
         counter += 1
 
     elif counter >= 13:
-        snail_rect.y += 4
+        snail_rect.y += 2
         counter += 1
         if counter >= 26:
             counter = 0
