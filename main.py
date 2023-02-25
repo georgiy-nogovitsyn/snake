@@ -3,7 +3,7 @@ from sys import exit
 
 pygame.init()
 pygame.display.set_caption('Snake')
-
+game_active = True
 FPS = 60
 SCREEN = pygame.display.set_mode((800, 400))
 clock = pygame.time.Clock()
@@ -45,60 +45,62 @@ while True:
             if event.key == pygame.K_SPACE and player_rect.bottom == 300:
                 player_gravity = -20
 
-        if event.type == pygame.K_w:
-            player_rect.x +=20
-
         if event.type == pygame.MOUSEBUTTONDOWN:
             if player_rect.collidepoint(mouse_pos):
                 player_gravity = -20
 
-    # if player_rect.colliderect(snail_rect):
-    #     print('game over')
-    #     pygame.quit()
-    #     exit()
+        if player_rect.colliderect(snail_rect):
+            game_active = False
 
-    SCREEN.blit(sky_surf, (0, 0))
-    SCREEN.blit(ground_surf, (0, 300))
-    SCREEN.blit(snail_surf, (snail_rect))
+    if game_active:
 
-    player_gravity += 1
-    player_rect.y += player_gravity
-    if player_rect.bottom >= 300:
-        player_rect.bottom = 300
-    SCREEN.blit(player_surf, (player_rect))
+        SCREEN.blit(sky_surf, (0, 0))
+        SCREEN.blit(ground_surf, (0, 300))
+        SCREEN.blit(snail_surf, (snail_rect))
 
-
-
-    SCREEN.blit(snake_surf, (snake_rect))
-    SCREEN.blit(score, (10,10))
-    SCREEN.blit(snail_says, (snail_rect.x-30, snail_rect.y-50))
-
-    pygame.draw.rect(SCREEN, '#c0e8ec', text_rect)
-    pygame.draw.rect(SCREEN, '#c0e8ec', text_rect, 10)
-    snail_rect.x -= 7
-    if counter < 13:
-        snail_rect.y -= 2
-        counter += 1
-
-    elif counter >= 13:
-        snail_rect.y += 2
-        counter += 1
-        if counter >= 26:
-            counter = 0
-    if snail_rect.left < 0:
-        snail_rect.left = 800
-
-    mouse_pos = pygame.mouse.get_pos()
-    if player_rect.collidepoint(mouse_pos):
-        scr += 1
-
-    counter_t += 1
-    if counter_t == 20:
-        player_words = ''
-        counter_t = 0
+        player_gravity += 1
+        player_rect.y += player_gravity
+        if player_rect.bottom >= 300:
+            player_rect.bottom = 300
+        SCREEN.blit(player_surf, (player_rect))
 
 
 
-    SCREEN.blit(text_surf, (text_rect))
+        SCREEN.blit(snake_surf, (snake_rect))
+        SCREEN.blit(score, (10,10))
+        SCREEN.blit(snail_says, (snail_rect.x-30, snail_rect.y-50))
+
+        pygame.draw.rect(SCREEN, '#c0e8ec', text_rect)
+        pygame.draw.rect(SCREEN, '#c0e8ec', text_rect, 10)
+        snail_rect.x -= 7
+        if counter < 13:
+            snail_rect.y -= 2
+            counter += 1
+
+        elif counter >= 13:
+            snail_rect.y += 2
+            counter += 1
+            if counter >= 26:
+                counter = 0
+        if snail_rect.left < 0:
+            snail_rect.left = 800
+
+        mouse_pos = pygame.mouse.get_pos()
+        if player_rect.collidepoint(mouse_pos):
+            scr += 1
+
+        counter_t += 1
+        if counter_t == 20:
+            player_words = ''
+            counter_t = 0
+
+
+
+        SCREEN.blit(text_surf, (text_rect))
+
+
+    else:
+        SCREEN.fill('Yellow')
+
     pygame.display.update()
     clock.tick(FPS)
