@@ -56,11 +56,11 @@ class Main:
     def teleport(self):
         if self.snake.body[0].x < 0:
             self.snake.body[0].x = CELL_NUMBER - 1
-        elif self.snake.body[0].x >= CELL_NUMBER:
+        elif self.snake.body[0].x > CELL_NUMBER:
             self.snake.body[0].x = 0
         if self.snake.body[0].y < 0:
             self.snake.body[0].y = CELL_NUMBER - 1
-        elif self.snake.body[0].y >= CELL_NUMBER:
+        elif self.snake.body[0].y > CELL_NUMBER:
             self.snake.body[0].y = 0
 
 
@@ -99,8 +99,8 @@ while True:
                 if main_game.snake.direction.y != 1:
                     main_game.snake.direction = Vector2(0, -1)
             elif event.key == pygame.K_s and main_game.snake.direction != move_up:
-                    if main_game.snake.direction.y != -1:
-                        main_game.snake.direction = Vector2(0, 1)
+                if main_game.snake.direction.y != -1:
+                    main_game.snake.direction = Vector2(0, 1)
 
     screen.fill('Lightblue')
     main_game.draw()
