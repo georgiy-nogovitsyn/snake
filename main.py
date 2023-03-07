@@ -9,9 +9,9 @@ class Fruit:
         self.position = Vector2(randint(0, CELL_NUMBER - 1), randint(0, CELL_NUMBER - 1))
 
     def draw(self):
-        fruit_rect = pygame.Rect(int(self.position.x) * CELL_SIZE, int(self.position.y) * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+        fruit_rect = pygame.Rect(int(self.position.x) * CELL_SIZE, int(self.position.y) * CELL_SIZE, CELL_SIZE,
+                                 CELL_SIZE)
         pygame.draw.rect(screen, (126, 166, 144), fruit_rect)
-
 
 
 class Snake:
@@ -28,7 +28,6 @@ class Snake:
         body_copy = self.body[:-1]
         body_copy.insert(0, body_copy[0] + self.direction)
         self.body = body_copy.copy()
-
 
 
 class Main:
@@ -62,7 +61,6 @@ class Main:
             self.snake.body[0].y = CELL_NUMBER - 1
         elif self.snake.body[0].y > CELL_NUMBER:
             self.snake.body[0].y = 0
-
 
 
 pygame.init()
