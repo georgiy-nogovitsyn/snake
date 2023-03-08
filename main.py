@@ -75,7 +75,7 @@ SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
 
 # directions
-move_up, move_down, move_left, move_right = Vector2(0, -1), Vector2(0, 1), Vector2(-1, 0), Vector2(1, 0)
+MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT = Vector2(0, -1), Vector2(0, 1), Vector2(-1, 0), Vector2(1, 0)
 
 main_game = Main()
 
@@ -89,16 +89,16 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 if main_game.snake.direction.x != 1:
-                    main_game.snake.direction = Vector2(-1, 0)
-            elif event.key == pygame.K_d and main_game.snake.direction != move_left:
+                    main_game.snake.direction = MOVE_LEFT
+            elif event.key == pygame.K_d:
                 if main_game.snake.direction.x != -1:
-                    main_game.snake.direction = Vector2(1, 0)
-            elif event.key == pygame.K_w and main_game.snake.direction != move_down:
+                    main_game.snake.direction = MOVE_RIGHT
+            elif event.key == pygame.K_w:
                 if main_game.snake.direction.y != 1:
-                    main_game.snake.direction = Vector2(0, -1)
-            elif event.key == pygame.K_s and main_game.snake.direction != move_up:
+                    main_game.snake.direction = MOVE_UP
+            elif event.key == pygame.K_s:
                 if main_game.snake.direction.y != -1:
-                    main_game.snake.direction = Vector2(0, 1)
+                    main_game.snake.direction = MOVE_DOWN
 
     screen.fill('Lightblue')
     main_game.draw()
