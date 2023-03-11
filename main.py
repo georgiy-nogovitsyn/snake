@@ -111,24 +111,17 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        if not pause:
-            if event.type == SCREEN_UPDATE:
-                main_game.update()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    direction = MOVE_LEFT
-                elif event.key == pygame.K_d:
-                    direction = MOVE_RIGHT
-                elif event.key == pygame.K_w:
-                    direction = MOVE_UP
-                elif event.key == pygame.K_s:
-                    direction = MOVE_DOWN
-                if event.key == pygame.K_p:
-                    pause = True
-        if pause is True and event.type == pygame.KEYDOWN: #not working
-            if event.key == pygame.K_p:
-                pause = False
-
+        if event.type == SCREEN_UPDATE:
+            main_game.update()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                direction = MOVE_LEFT
+            elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                direction = MOVE_RIGHT
+            elif event.key == pygame.K_w or event.key == pygame.K_UP:
+                direction = MOVE_UP
+            elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                direction = MOVE_DOWN
 
     screen.fill('Lightblue')
     main_game.draw()
