@@ -28,9 +28,12 @@ class Snake:
         self.direction = Vector2(1, 0)
 
     def draw(self):
-        for block in self.body:
+        for i, block in enumerate(self.body):
             snake_rect = pygame.Rect(int(block.x) * CELL_SIZE, int(block.y) * CELL_SIZE, CELL_SIZE, CELL_SIZE)
-            pygame.draw.rect(screen, (133, 100, 122), snake_rect)
+            if i == 0:
+                pygame.draw.rect(screen, (120, 90, 120), snake_rect)
+            else:
+                pygame.draw.rect(screen, (133, 100, 122), snake_rect)
 
     def move(self):
         body_copy = self.body[:-1]
@@ -90,16 +93,16 @@ class Main:
 
 pygame.init()
 
-FPS = 60
+FPS = 120
 CELL_SIZE = 30
 CELL_NUM = 20
+GAME_SPEED = 150
 screen = pygame.display.set_mode((CELL_SIZE * CELL_NUM, CELL_SIZE * CELL_NUM))
 clock = pygame.time.Clock()
 
 SCREEN_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(SCREEN_UPDATE, 150)
+pygame.time.set_timer(SCREEN_UPDATE, GAME_SPEED)
 
-# directions
 MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT = Vector2(0, -1), Vector2(0, 1), Vector2(-1, 0), Vector2(1, 0)
 
 main_game = Main()
