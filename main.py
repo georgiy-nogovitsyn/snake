@@ -108,6 +108,7 @@ MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT = Vector2(0, -1), Vector2(0, 1), Vecto
 main_game = Main()
 direction = main_game.snake.direction
 pause = False
+
 while True:
     pygame.display.set_caption(str(main_game.fruit_counter))
     for event in pygame.event.get():
